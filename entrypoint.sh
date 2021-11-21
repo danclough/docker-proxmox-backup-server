@@ -25,6 +25,12 @@ docker_verify_minimum_env() {
 	fi
 }
 
+import_ca() {
+        if [ -n "$IMPORT_CA" ]; then
+		update-ca-certificates
+	fi
+}
+
 # Loads various settings that are used elsewhere in the script
 docker_setup_env() {
     declare -g USERS_ALREADY_EXISTS
@@ -53,6 +59,7 @@ docker_setup_pbs() {
 }
 
 docker_verify_minimum_env
+import_ca
 
 # Start api first in background
 /usr/lib/x86_64-linux-gnu/proxmox-backup/proxmox-backup-api &
